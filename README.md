@@ -19,5 +19,5 @@ CLI arguments
 Usage
 
 ```bash
-sethbot ts-component Button true
+sethbot ts-component Button y
 ```
