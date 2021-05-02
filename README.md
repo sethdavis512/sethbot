@@ -8,6 +8,14 @@ A personal CLI to handle repetitious tasks.
 npm i && npm run plop
 ```
 
-## Generators
+## Use globally
 
-`ts-component`
+```bash
+npm i && npm link
+```
+
+## Example usage
+
+```bash
+sethbot ts-component Button true
+```
