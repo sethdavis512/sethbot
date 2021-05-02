@@ -1,0 +1,33 @@
+{
+    "name": "sethbot",
+    "version": "0.0.1",
+    "description": "A personal CLI tool",
+    "main": "index.js",
+    "bin": {
+        "sethbot": "./index.js"
+    },
+    "preferGlobal": true,
+    "scripts": {
+        "plop": "plop"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/sethdavis512/sethbot.git"
+    },
+    "keywords": [
+        "personal",
+        "command",
+        "line",
+        "interface",
+        "tool"
+    ],
+    "author": "Seth Davis",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/sethdavis512/sethbot/issues"
+    },
+    "homepage": "https://github.com/sethdavis512/sethbot#readme",
+    "dependencies": {
+        "plop": "^2.7.4"
+    }
+}
