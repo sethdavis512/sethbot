@@ -1,0 +1,33 @@
+import { createContext, useContext, useReducer } from 'react';
+
+const ActionTypes = {
+    SET_NAME: "SET_NAME"
+};
+
+// Context setup ==========
+export const {{ pascalCase name }}Context = createContext(null);
+
+// Custom hook for convenience
+export const use{{ pascalCase name }}Context = () => useContext({{ pascalCase name }}Context);
+
+// Custom component for convenience
+const {{ pascalCase name }}Provider = ({ children, initialValue }) => {
+    const [state, dispatch] = useReducer((state, { payload, type }) => {
+        if (type === ActionTypes.SET_NAME) {
+            return {
+                ...state,
+                name: payload.name
+            };
+        }
+
+        return state;
+    }, initialValue);
+
+    return (
+        <{{ pascalCase name }}Context.Provider value=\{{ dispatch, state }}>
+            {children}
+        </{{ pascalCase name }}Context.Provider>
+    );
+};
+
+export default {{ pascalCase name }}Provider;
