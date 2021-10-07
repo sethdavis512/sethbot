@@ -1,18 +1,18 @@
 module.exports = {
-    description: 'A React component written in Typescript',
+    description: 'A React styled component written in Typescript',
     prompts: [
         {
             type: 'input',
             name: 'name',
-            message: 'Component name'
+            message: 'Styled component name'
         }
     ],
     actions: [
         {
             type: 'addMany',
             destination: `${process.cwd()}/{{ pascalCase name }}/`,
-            templateFiles: 'plop-templates/ts-component',
-            base: 'plop-templates/ts-component'
+            templateFiles: 'plop-templates/ts-styled-component',
+            base: 'plop-templates/ts-styled-component'
         }
     ]
 };
