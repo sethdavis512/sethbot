@@ -1,0 +1,96 @@
+import React, { useContext, createContext, useReducer, useEffect } from 'react';
+
+export interface {{ pascalCase name }}State {
+    name: string;
+}
+
+export interface {{ pascalCase name }}Actions {
+    setName: (name: string) => void;
+}
+
+export type {{ pascalCase name }}ActionType = {
+    type: 'SET_NAME';
+    payload: {
+        name: string;
+    };
+};
+
+export interface {{ pascalCase name }}ContextInterface {
+    {{ camelCase name }}State: {{ pascalCase name }}State;
+    {{ camelCase name }}Actions: {{ pascalCase name }}Actions;
+}
+
+const {{ constantCase name }}_LOCAL_STORAGE_KEY = '{{ camelCase name }}Data';
+
+export const getLocalStorageValue = (initialValue: {{ pascalCase name }}State): {{ pascalCase name }}State => {
+    try {
+        const item = window.localStorage.getItem({{ constantCase name }}_LOCAL_STORAGE_KEY);
+
+        return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+        console.log(error);
+
+        return initialValue;
+    }
+};
+
+export const {{ pascalCase name }}Context = createContext<{{ pascalCase name }}ContextInterface | undefined>(undefined);
+
+export const use{{ pascalCase name }}Context = (): [{{ pascalCase name }}State, {{ pascalCase name }}Actions] => {
+    const context = useContext({{ pascalCase name }}Context);
+
+    if (context === undefined) {
+        throw new Error('❌ use{{ pascalCase name }}Context must be used within a {{ pascalCase name }}Provider');
+    }
+
+    return [context.{{ camelCase name }}State, context.{{ camelCase name }}Actions];
+};
+
+const {{ camelCase name }}Reducer = ({{ camelCase name }}State: {{ pascalCase name }}State, { payload, type }: {{ pascalCase name }}ActionType): {{ pascalCase name }}State => {
+    if (type === 'SET_NAME') {
+        return {
+            ...{{ camelCase name }}State,
+            name: payload.name
+        };
+    }
+
+    return {{ camelCase name }}State;
+};
+
+interface {{ pascalCase name }}ProviderProps {
+    value: {{ pascalCase name }}State;
+}
+
+const {{ pascalCase name }}Provider: React.FunctionComponent<{{ pascalCase name }}ProviderProps> = ({ children, value }) => {
+    const initialValue: {{ pascalCase name }}State = value || { name: '' };
+
+    const [state, dispatch] = useReducer({{ camelCase name }}Reducer, getLocalStorageValue(initialValue));
+
+    useEffect(() => {
+        window.localStorage.setItem({{ constantCase name }}_LOCAL_STORAGE_KEY, JSON.stringify(state));
+    }, [state]);
+
+    const actions: {{ pascalCase name }}Actions = {
+        setName: (name: string) => {
+            dispatch({
+                type: 'SET_NAME',
+                payload: {
+                    name
+                }
+            });
+        }
+    };
+
+    return (
+        <{{ pascalCase name }}Context.Provider
+            value=\{{
+                {{ camelCase name }}State: state,
+                {{ camelCase name }}Actions: actions
+            }}
+        >
+            {children}
+        </{{ pascalCase name }}Context.Provider>
+    );
+};
+
+export default {{ pascalCase name }}Provider;

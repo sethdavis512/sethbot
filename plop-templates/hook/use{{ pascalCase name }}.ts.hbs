@@ -1,0 +1,11 @@
+import { useCallback, useState } from 'react';
+
+const use{{ pascalCase name }} = (initialState: boolean = false): [boolean, any] => {
+    const [toggleState, setToggleState] = useState<boolean>(initialState);
+
+    const toggle = useCallback((): void => setToggleState(state => !state), []);
+
+    return [toggleState, toggle];
+};
+
+export default use{{ pascalCase name }};

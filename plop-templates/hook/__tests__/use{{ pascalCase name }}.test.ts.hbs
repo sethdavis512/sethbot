@@ -1,0 +1,20 @@
+import { act, renderHook } from '@testing-library/react-hooks';
+import use{{ pascalCase name }} from './use{{ pascalCase name }}';
+
+describe('use{{ pascalCase name }}', () => {
+    it('should initialize to false', () => {
+        const { result } = renderHook(() => use{{ pascalCase name }}());
+
+        expect(result.current[0]).toEqual(false);
+    });
+
+    it('should toggle state to true', () => {
+        const { result } = renderHook(() => use{{ pascalCase name }}());
+
+        act(() => {
+            result.current[1]();
+        });
+
+        expect(result.current[0]).toEqual(true);
+    });
+});

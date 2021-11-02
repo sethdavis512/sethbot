@@ -1,0 +1,28 @@
+import { buildMachineReducer, machineSpec } from "../useStateMachine";
+
+const runMachine = (state, event) =>
+    buildMachineReducer(machineSpec)(state, event);
+
+describe("connectionMachine spec", () => {
+    it("starts disconnected", () => {
+        expect(machineSpec.initialState).toBe("disconnected");
+    });
+
+    describe("when disconnected", () => {
+        it("can connect", () => {
+            expect(runMachine("disconnected", "CONNECT")).toBe("connecting");
+        });
+    });
+
+    describe("when connecting", () => {
+        it("can connect", () => {
+            expect(runMachine("connecting", "CONNECTION_SUCCESS")).toBe("connected");
+        });
+    });
+
+    describe("when connected", () => {
+        it("can disconnect", () => {
+            expect(runMachine("connected", "DISCONNECT")).toBe("disconnected");
+        });
+    });
+});

@@ -1,0 +1,34 @@
+import React from 'react';
+import { RenderResult, render, screen } from '@testing-library/react';
+import {{ pascalCase name }}Provider, { use{{ pascalCase name }}Context } from '../{{ pascalCase name }}Provider';
+
+/**
+ * A custom render to setup providers. Extends regular
+ * render options with `providerProps` to allow injecting
+ * different scenarios to test with.
+ *
+ * @see https://testing-library.com/docs/react-testing-library/setup#custom-render
+ */
+const customRender = (ui: any, { providerProps, ...renderOptions }: any): RenderResult => render(<{{ pascalCase name }}Provider {...providerProps}>{ui}</{{ pascalCase name }}Provider>, renderOptions);
+
+const PlaceholderComponent: React.FunctionComponent = () => {
+    const [state] = use{{ pascalCase name }}Context();
+
+    return (<div>My name is: {state.name}</div>);
+};
+
+// Taken from React Testing Library example
+// https://testing-library.com/docs/example-react-context/
+describe('{{ pascalCase name }}Provider', () => {
+    it('should render name from provider', () => {
+        const providerProps = {
+            value: {
+                name: '{{ pascalCase name }}Provider'
+            }
+        };
+
+        customRender(<PlaceholderComponent />, { providerProps });
+
+        expect(screen.getByText(/^My name is:/)).toHaveTextContent('My name is: {{ pascalCase name }}Provider');
+    });
+});
