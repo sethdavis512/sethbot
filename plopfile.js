@@ -3,6 +3,12 @@ module.exports = (plop) => {
     plop.setGenerator('component',
         require('./generator-configs/componentConfig')
     );
+    plop.setGenerator('styled-component',
+        require('./generator-configs/styledComponentConfig')
+    );
+    plop.setGenerator('component-with-test',
+        require('./generator-configs/componentWithTestConfig')
+    );
     plop.setGenerator('context',
         require('./generator-configs/contextConfig')
     );
