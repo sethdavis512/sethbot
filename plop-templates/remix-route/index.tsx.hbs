@@ -1,0 +1,59 @@
+import type { {{#if hasAction}}ActionFunction, {{/if}}{{#if hasLinks}}LinksFunction, {{/if}}{{#if hasLoader}}LoaderFunction, {{/if}}{{#if hasMeta}}MetaFunction{{/if}} } from 'remix';
+import { useLoaderData, {{#if hasLoader}}json, {{/if}}Link } from 'remix';
+{{#if hasLinks}}
+import stylesUrl from "../styles/index.css";
+{{/if}}
+
+type {{ pascalCase name }}Data = {
+    greeting: string;
+};
+
+{{#if hasLoader}}
+// https://remix.run/api/conventions#loader
+export const loader: LoaderFunction = () => {
+    // https://remix.run/api/remix#json
+    return json({
+        greeting: 'Howdy'
+    });
+};
+
+{{/if}}
+{{#if hasAction}}
+// https://remix.run/api/conventions#action
+export const action: ActionFunction = async () => {
+    // const yourData = await db.theData.create({ data: { ... } });
+    // return redirect(`/your-link/${yourData.id}`);
+
+    return null;
+};
+
+{{/if}}
+{{#if hasMeta}}
+// https://remix.run/api/conventions#meta
+export const meta: MetaFunction = () => {
+    return {
+        title: 'Remix Starter',
+        description: 'Welcome to remix!'
+    };
+};
+
+{{/if}}
+{{#if hasLinks}}
+// https://remix.run/api/conventions#links
+export const links: LinksFunction = () => {
+    return [{ rel: "stylesheet", href: stylesUrl }];
+};
+
+{{/if}}
+// https://remix.run/guides/routing#index-routes
+export default function {{ pascalCase name }}Route() {
+    const data = useLoaderData<{{ pascalCase name }}Data>();
+
+    return (
+        <div>
+            <h2>{{ sentenceCase name }}</h2>
+            {JSON.stringify(data, null, 4)}
+            <Link to="/">Go back</Link>
+        </div>
+    );
+}

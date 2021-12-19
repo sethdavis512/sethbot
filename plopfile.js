@@ -24,4 +24,7 @@ module.exports = (plop) => {
     plop.setGenerator('use-state-machine',
         require('./generator-configs/useStateMachineConfig')
     );
+    plop.setGenerator('remix-route',
+        require('./generator-configs/remixRouteConfig')
+    );
 };
