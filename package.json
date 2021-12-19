@@ -27,7 +27,9 @@
         "url": "https://github.com/sethdavis512/sethbot/issues"
     },
     "homepage": "https://github.com/sethdavis512/sethbot#readme",
-    "dependencies": {
-        "plop": "^2.7.4"
+    "dependencies": {},
+    "devDependencies": {
+        "plop": "^2.7.4",
+        "shelljs": "^0.8.4"
     }
 }
