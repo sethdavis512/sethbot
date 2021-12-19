@@ -1,30 +1,31 @@
 #!/usr/bin/env node
+const { start } = require('./actions/npmActions');
+
 module.exports = (plop) => {
-    plop.setGenerator('component',
-        require('./generator-configs/componentConfig')
+    plop.setActionType('npm-start', start);
+    plop.setActionType('cra-tailwind', require('./actions/craTailwindAction'));
+
+    plop.setGenerator('component', require('./configs/componentConfig'));
+    plop.setGenerator(
+        'styled-component',
+        require('./configs/styledComponentConfig')
     );
-    plop.setGenerator('styled-component',
-        require('./generator-configs/styledComponentConfig')
+    plop.setGenerator(
+        'component-with-test',
+        require('./configs/componentWithTestConfig')
     );
-    plop.setGenerator('component-with-test',
-        require('./generator-configs/componentWithTestConfig')
+    plop.setGenerator('context', require('./configs/contextConfig'));
+    plop.setGenerator('hook', require('./configs/hookConfig'));
+    plop.setGenerator('smart-context', require('./configs/smartContextConfig'));
+    plop.setGenerator(
+        'use-local-storage',
+        require('./configs/useLocalStorageConfig')
     );
-    plop.setGenerator('context',
-        require('./generator-configs/contextConfig')
+    plop.setGenerator(
+        'use-state-machine',
+        require('./configs/useStateMachineConfig')
     );
-    plop.setGenerator('hook',
-        require('./generator-configs/hookConfig')
-    );
-    plop.setGenerator('smart-context',
-        require('./generator-configs/smartContextConfig')
-    );
-    plop.setGenerator('use-local-storage',
-        require('./generator-configs/useLocalStorageConfig')
-    );
-    plop.setGenerator('use-state-machine',
-        require('./generator-configs/useStateMachineConfig')
-    );
-    plop.setGenerator('remix-route',
-        require('./generator-configs/remixRouteConfig')
-    );
+    plop.setGenerator('remix-route', require('./configs/remixRouteConfig'));
+
+    plop.setGenerator('cra-tailwind', require('./configs/craTailwindConfig'));
 };
