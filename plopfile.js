@@ -1,31 +1,29 @@
 #!/usr/bin/env node
-const { start } = require('./actions/npmActions');
+const { start } = require('./actions/npm');
 
 module.exports = (plop) => {
     plop.setActionType('npm-start', start);
-    plop.setActionType('cra-tailwind', require('./actions/craTailwindAction'));
+    plop.setActionType('cra-tailwind', require('./actions/craTailwind'));
 
-    plop.setGenerator('component', require('./configs/componentConfig'));
-    plop.setGenerator(
-        'styled-component',
-        require('./configs/styledComponentConfig')
-    );
+    plop.setGenerator('component', require('./configs/component'));
+    plop.setGenerator('styled-component', require('./configs/styledComponent'));
     plop.setGenerator(
         'component-with-test',
-        require('./configs/componentWithTestConfig')
+        require('./configs/componentWithTest')
     );
-    plop.setGenerator('context', require('./configs/contextConfig'));
-    plop.setGenerator('hook', require('./configs/hookConfig'));
-    plop.setGenerator('smart-context', require('./configs/smartContextConfig'));
+    plop.setGenerator('context', require('./configs/context'));
+    plop.setGenerator('hook', require('./configs/hook'));
+    plop.setGenerator('smart-context', require('./configs/smartContext'));
     plop.setGenerator(
         'use-local-storage',
-        require('./configs/useLocalStorageConfig')
+        require('./configs/useLocalStorage')
     );
     plop.setGenerator(
         'use-state-machine',
-        require('./configs/useStateMachineConfig')
+        require('./configs/useStateMachine')
     );
-    plop.setGenerator('remix-route', require('./configs/remixRouteConfig'));
+    plop.setGenerator('use-array', require('./configs/useArray'));
+    plop.setGenerator('remix-route', require('./configs/remixRoute'));
 
-    plop.setGenerator('cra-tailwind', require('./configs/craTailwindConfig'));
+    plop.setGenerator('cra-tailwind', require('./configs/craTailwind'));
 };
