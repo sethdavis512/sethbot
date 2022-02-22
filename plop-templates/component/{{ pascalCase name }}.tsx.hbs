@@ -1,9 +1,7 @@
-import React from 'react';
+import { ReactNode } from 'react';
 
-const {{name}}: React.FunctionComponent = ({ children }) => {
-    return (
-        <div>{children}</div>
-    );
+const {{name}} = ({ children }: { children: ReactNode }) => {
+    return <div>{children}</div>;
 };
 
 export default {{name}};
