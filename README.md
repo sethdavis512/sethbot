@@ -13,11 +13,11 @@ npm i && npm link
 CLI arguments
 
 ```bash
-<cli-name> <generator-name> <component-name> <has-enclosing-folder>
+<cli-name> <generator-name> <item-name>
 ```
 
 Usage
 
 ```bash
-sethbot ts-component Button y
+sethbot component Panel
 ```
