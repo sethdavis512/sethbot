@@ -115,9 +115,9 @@ export default function ({ setGenerator }) {
         ]
     });
 
-    setGenerator('tiny-react-app', {
+    setGenerator('tiny-react', {
         description: 'Tiny React app built using Parcel',
         prompts: defaultPrompts,
-        actions: buildAddManyActions('tiny-react-app', 'kebabCase')
+        actions: buildAddManyActions('tiny-react', 'kebabCase')
     });
 }
