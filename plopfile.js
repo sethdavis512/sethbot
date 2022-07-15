@@ -118,13 +118,6 @@ export default function ({ setGenerator }) {
     setGenerator('tiny-react-app', {
         description: 'Tiny React app built using Parcel',
         prompts: defaultPrompts,
-        actions: (answers) => {
-            // Dot files are not working with plop :shrug:
-            shell.echo(
-                `node_modules >> ${process.cwd()}/${answers.name.toLowerCase()}/.gitignore`
-            );
-
-            return buildAddManyActions('tiny-react-app', 'kebabCase');
-        }
+        actions: buildAddManyActions('tiny-react-app', 'kebabCase')
     });
 }
