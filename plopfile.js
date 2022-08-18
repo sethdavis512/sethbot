@@ -114,6 +114,26 @@ export default function ({ setGenerator }) {
         ]
     });
 
+    setGenerator('remix-airtable-crud', {
+        description: 'Remix Airtable CRUD',
+        prompts: [
+            {
+                type: 'input',
+                name: 'name',
+                message: 'Model (singular, i.e. Player)'
+            }
+        ],
+        actions: [
+            {
+                type: 'addMany',
+                destination: `${process.cwd()}/`,
+                templateFiles: `plop-templates/remix-airtable-crud/**/*.hbs`,
+                base: `plop-templates/remix-airtable-crud`,
+                force: true
+            }
+        ]
+    });
+
     setGenerator('tiny-react', {
         description: 'Tiny React app built using Parcel',
         prompts: defaultPrompts,

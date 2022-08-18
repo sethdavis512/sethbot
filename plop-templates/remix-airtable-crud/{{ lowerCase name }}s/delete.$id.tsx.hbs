@@ -1,0 +1,16 @@
+import type { LoaderFunction } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
+
+import base from '~/airtable.server';
+
+export const loader: LoaderFunction = async ({ params }) => {
+  base("{{ sentenceCase name }}s").destroy(params.id, function (err, deletedRecords) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log("Deleted", deletedRecords.length, "records");
+  });
+
+  return redirect("/{{ lowerCase name }}s");
+};
