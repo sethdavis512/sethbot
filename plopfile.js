@@ -63,7 +63,7 @@ export default function ({ setGenerator }) {
             {
                 type: 'input',
                 name: 'name',
-                message: 'Name (lowercase)'
+                message: 'Name'
             },
             {
                 type: 'confirm',
