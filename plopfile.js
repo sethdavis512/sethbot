@@ -63,7 +63,7 @@ export default function ({ setGenerator }) {
             {
                 type: 'input',
                 name: 'name',
-                message: 'Name'
+                message: 'Name (lowercase)'
             },
             {
                 type: 'confirm',
@@ -92,7 +92,7 @@ export default function ({ setGenerator }) {
             {
                 type: 'confirm',
                 name: 'hasErrorBoundary',
-                message: 'Error boundary',
+                message: 'ErrorBoundary',
                 default: false
             }
         ],
