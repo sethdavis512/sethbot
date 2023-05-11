@@ -1,0 +1,74 @@
+import type { {{#if hasAction}}ActionArgs, {{/if}}{{#if hasLinks}}LinksFunction, {{/if}}{{#if hasLoader}}LoaderArgs, {{/if}}{{#if hasMeta}}MetaFunction{{/if}} } from "@remix-run/node";
+{{#if hasLoader}}import { redirect, json } from "@remix-run/node";{{/if}}
+import { Outlet, useLoaderData, Link{{#if hasErrorBoundary}}, useRouteError, isRouteErrorResponse{{/if}} } from "@remix-run/react";
+
+type {{ pascalCase name }}Data = {
+  greeting: string;
+};
+
+{{#if hasLinks}}
+export const links: LinksFunction = () => {
+  return [{ rel: "stylesheet", href: '' }];
+};
+
+{{/if}}
+{{#if hasMeta}}
+export const meta: MetaFunction = () => {
+  return {
+    title: 'My web app',
+    description: 'Welcome to Remix!'
+  };
+};
+
+{{/if}}
+{{#if hasLoader}}
+export const loader = async ({ request }: LoaderArgs) => {
+  return json({
+    greeting: 'Howdy'
+  });
+};
+
+{{/if}}
+{{#if hasAction}}
+export const action = async ({ params, request }: ActionArgs) => {
+  const formData = await request.formData();
+
+  // const firstName = formData.get("firstName");
+  // invariant(firstName, "First name not found");
+  // await createPost({ firstName });
+
+  return redirect('/');
+};
+
+{{/if}}
+export default function {{ pascalCase name }}Route() {
+  const data = useLoaderData<{{ pascalCase name }}Data>();
+
+  return (
+    <div>
+      <h2>{{ sentenceCase name }}</h2>
+      {JSON.stringify(data, null, 4)}
+      <Outlet />
+      <Link to="/">Go back</Link>
+    </div>
+  );
+}
+
+{{#if hasErrorBoundary}}
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  if (error instanceof Error) {
+      return <div>An unexpected error occurred: {error.message}</div>;
+  }
+
+  if (!isRouteErrorResponse(error)) {
+      return <h1>Unknown Error</h1>;
+  }
+
+  // if (error.status === 404) {
+  //    return <div>Note not found</div>;
+  // }
+
+  return <div>An unexpected error occurred: {error.statusText}</div>;
+}{{/if}}

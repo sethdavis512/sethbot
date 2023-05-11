@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-const {{name}}: React.FunctionComponent = ({ children }) => {
-    return (
-        <div>{children}</div>
-    );
-};
+interface {{name}}Props {
+    children: ReactNode;
+}
 
-export default {{name}};
+export default function {{name}}({ children }: {{name}}Props): JSX.Element {
+    return <>{children}</>;
+}

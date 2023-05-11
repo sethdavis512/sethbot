@@ -1,3 +1,9 @@
-export default function {{name}}(): JSX.Element {
-    return <div>{children}</div>;
-};
+import React, { ReactNode } from 'react';
+
+interface {{name}}Props {
+    children: ReactNode;
+}
+
+export default function {{name}}({ children }: {{name}}Props): JSX.Element {
+    return <>{children}</>;
+}

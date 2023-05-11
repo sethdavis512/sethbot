@@ -1,7 +1,5 @@
-import { useCallback, useReducer } from 'react';
+import { type DispatchWithoutAction, useReducer } from 'react';
 
-export default function use{{ pascalCase name }}(initialState: boolean = false) {
-    const [toggleState, setToggleState] = useReducer<boolean>((s) => !s, false);
-
-    return [toggleState, setToggleState];
+export default function use{{ pascalCase name }}(initialState: boolean = false): [boolean, DispatchWithoutAction] {
+    return useReducer((s) => !s, initialState);
 }

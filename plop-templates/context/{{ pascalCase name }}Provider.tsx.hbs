@@ -1,78 +1,58 @@
-import React, { useContext, createContext, useReducer } from 'react';
+import React, { type Dispatch, type ReactNode, createContext, useContext, useReducer } from 'react';
 
 export interface {{ pascalCase name }}State {
-    name: string;
+    count: number;
 }
 
-export interface {{ pascalCase name }}Actions {
-    setName: (name: string) => void;
-}
-
-export type {{ pascalCase name }}ActionType = {
-    type: 'SET_NAME';
-    payload: {
-        name: string;
+export type {{ pascalCase name }}Actions =
+    | {
+        type: 'increment'
+    }
+    | {
+        type: 'decrement'
     };
-};
 
 export interface {{ pascalCase name }}ContextInterface {
-    {{ camelCase name }}State: {{ pascalCase name }}State;
-    {{ camelCase name }}Actions: {{ pascalCase name }}Actions;
+    state: {{ pascalCase name }}State;
+    dispatch: Dispatch<{{ pascalCase name }}Actions>;
+}
+
+interface {{ pascalCase name }}ProviderProps {
+    children: ReactNode;
 }
 
 export const {{ pascalCase name }}Context = createContext<{{ pascalCase name }}ContextInterface | undefined>(undefined);
 
-export const use{{ pascalCase name }}Context = (): [{{ pascalCase name }}State, {{ pascalCase name }}Actions] => {
+function {{ camelCase name }}Reducer(state: {{ pascalCase name }}State, action: {{ pascalCase name }}Actions) {
+    if (action.type === 'increment') {
+        return { count: state.count + 1 };
+    } else if (action.type === 'decrement') {
+        return { count: state.count - 1 };
+    } else {
+        // @ts-ignore
+        throw new Error(`Unhandled action type: ${action.type}`);
+    }
+}
+
+export function use{{ pascalCase name }}() {
     const context = useContext({{ pascalCase name }}Context);
 
     if (context === undefined) {
-        throw new Error('❌ use{{ pascalCase name }}Context must be used within a {{ pascalCase name }}Provider');
+        throw new Error('use{{ pascalCase name }} must be used within a {{ pascalCase name }}Provider');
     }
 
-    return [context.{{ camelCase name }}State, context.{{ camelCase name }}Actions];
-};
-
-const {{ camelCase name }}Reducer = ({{ camelCase name }}State: {{ pascalCase name }}State, { payload, type }: {{ pascalCase name }}ActionType): {{ pascalCase name }}State => {
-    if (type === 'SET_NAME') {
-        return {
-            ...{{ camelCase name }}State,
-            name: payload.name
-        };
-    }
-
-    return {{ camelCase name }}State;
-};
-
-interface {{ pascalCase name }}ProviderProps {
-    value: {{ pascalCase name }}State;
+    return context;
 }
 
-const {{ pascalCase name }}Provider: React.FunctionComponent<{{ pascalCase name }}ProviderProps> = ({ children, value }) => {
-    const initialValue: {{ pascalCase name }}State = value || { name: '' };
-
-    const [state, dispatch] = useReducer({{ camelCase name }}Reducer, initialValue);
-
-    const actions: {{ pascalCase name }}Actions = {
-        setName: (name: string) => {
-            dispatch({
-                type: 'SET_NAME',
-                payload: {
-                    name
-                }
-            });
-        }
-    };
+export default function {{ pascalCase name }}Provider({ children }: ) {
+    const [state, dispatch] = useReducer({{ camelCase name }}Reducer, { count: 0 });
+    // NOTE: you *might* need to memoize this value
+    // Learn more in http://kcd.im/optimize-context
+    const value = { state, dispatch };
 
     return (
-        <{{ pascalCase name }}Context.Provider
-            value=\{{
-                {{ camelCase name }}State: state,
-                {{ camelCase name }}Actions: actions
-            }}
-        >
+        <{{ pascalCase name }}Context.Provider value={value}>
             {children}
         </{{ pascalCase name }}Context.Provider>
     );
-};
-
-export default {{ pascalCase name }}Provider;
+}
