@@ -1,11 +1,13 @@
 import type { {{#if hasAction}}ActionArgs, {{/if}}{{#if hasLinks}}LinksFunction, {{/if}}{{#if hasLoader}}LoaderArgs, {{/if}}{{#if hasMeta}}MetaFunction{{/if}} } from "@remix-run/node";
 {{#if hasLoader}}import { redirect, json } from "@remix-run/node";{{/if}}
-import { Outlet, useLoaderData, Link{{#if hasErrorBoundary}}, useRouteError, isRouteErrorResponse{{/if}} } from "@remix-run/react";
+import { Outlet{{#if hasLoader}}, useLoaderData{{/if}}, Link{{#if hasErrorBoundary}}, useRouteError, isRouteErrorResponse{{/if}} } from "@remix-run/react";
 
+{{#if hasLoader}}
 type {{ pascalCase name }}Data = {
   greeting: string;
 };
 
+{{/if}}
 {{#if hasLinks}}
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: '' }];
@@ -42,12 +44,16 @@ export const action = async ({ params, request }: ActionArgs) => {
 
 {{/if}}
 export default function {{ pascalCase name }}Route() {
-  const data = useLoaderData<{{ pascalCase name }}Data>();
+{{#if hasLoader}}
+const data = useLoaderData<{{ pascalCase name }}Data>();
 
+{{/if}}
   return (
     <div>
       <h2>{{ sentenceCase name }}</h2>
+{{#if hasLoader}}
       {JSON.stringify(data, null, 4)}
+{{/if}}
       <Outlet />
       <Link to="/">Go back</Link>
     </div>
